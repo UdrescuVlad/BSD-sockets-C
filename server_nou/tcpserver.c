@@ -54,3 +54,24 @@ void main() {
 //stop listening for new connections by the main process.
 //the child will continue to listen.
 //the main process now handles the connected client.
+
+   for (;;) {
+       memset(buffer, 0, BUF_SIZE);
+       ret = recvfrom(newsockfd, buffer, BUF_SIZE, 0, (struct sockaddr*) & cl_addr, &len);
+       if (ret < 0) {
+           printf("Error receiving data!\n");
+           exit(1);
+       }
+       printf("Received data from %s: %s\n", clientAddr, buffer);
+
+       ret = sendto(newsockfd, buffer, BUF_SIZE, 0, (struct sockaddr*) & cl_addr, len);
+       if (ret < 0) {
+           printf("Error sending data!\n");
+           exit(1);
+       }
+       printf("Sent data to %s: %s\n", clientAddr, buffer);
+   }
+  }
+  close(newsockfd);
+ }
+}
