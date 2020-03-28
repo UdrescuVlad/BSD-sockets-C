@@ -44,6 +44,7 @@ int main(int argc, char**argv) {
 
  memset(buffer, 0, BUF_SIZE);
  printf("Enter your message(s): ");
+
  while (fgets(buffer, BUF_SIZE, stdin) != NULL) {
   ret = sendto(sockfd, buffer, BUF_SIZE, 0, (struct sockaddr *) &addr, sizeof(addr));
   if (ret < 0) {
@@ -61,3 +62,4 @@ int main(int argc, char**argv) {
 
  return 0;
 }
+
