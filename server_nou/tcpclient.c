@@ -44,3 +44,20 @@ int main(int argc, char**argv) {
 
  memset(buffer, 0, BUF_SIZE);
  printf("Enter your message(s): ");
+ while (fgets(buffer, BUF_SIZE, stdin) != NULL) {
+  ret = sendto(sockfd, buffer, BUF_SIZE, 0, (struct sockaddr *) &addr, sizeof(addr));
+  if (ret < 0) {
+   printf("Error sending data!\n\t-%s", buffer);
+  }
+  ret = recvfrom(sockfd, buffer, BUF_SIZE, 0, NULL, NULL);
+  if (ret < 0) {
+   printf("Error receiving data!\n");
+  } else {
+   printf("Received: ");
+   fputs(buffer, stdout);
+   printf("\n");
+  }
+ }
+
+ return 0;
+}
